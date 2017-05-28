@@ -26,7 +26,7 @@ MessengerFactory::parentFromClass(ClosureChild::class, $loop)->then(function (Me
         }
 
         $messenger->rpc(MessageFactory::rpc(function () {
-            return ['time' => time()];
+            return ['time' => time()]; // Note that you ALWAYS MUST return an array
         }))->done(function (Payload $payload) {
             echo $payload['time'], PHP_EOL;
         });
