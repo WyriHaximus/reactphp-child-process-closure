@@ -11,6 +11,7 @@
     "require": {
         "php": "^7.0",
         "jeremeamia/superclosure": "^2.3",
+        "nikic/php-parser": "^2.0|^3.0",
         "wyrihaximus/react-child-process-messenger": "^2.7"
     },
     "require-dev": {
