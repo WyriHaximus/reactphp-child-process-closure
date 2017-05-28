@@ -47,11 +47,20 @@ final class ClosureChild implements ChildInterface
         );
     }
 
+    /**
+     * @param  Messenger     $messenger
+     * @param  LoopInterface $loop
+     * @return ClosureChild
+     */
     public static function create(Messenger $messenger, LoopInterface $loop): ClosureChild
     {
         return new self($messenger, $loop);
     }
 
+    /**
+     * @param  string           $closure
+     * @return PromiseInterface
+     */
     private function executeClosure(string $closure): PromiseInterface
     {
         try {

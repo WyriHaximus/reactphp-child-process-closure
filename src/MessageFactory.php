@@ -11,6 +11,10 @@ final class MessageFactory
 {
     const CLOSURE_EXECUTE = 'wyrihaximus.react.child-process.closure.child.execute';
 
+    /**
+     * @param  Closure $closure
+     * @return Rpc
+     */
     public static function rpc(Closure $closure): Rpc
     {
         return Factory::rpc(
