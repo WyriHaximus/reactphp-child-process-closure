@@ -7,7 +7,7 @@ use SuperClosure\Serializer;
 use WyriHaximus\React\ChildProcess\Messenger\Messages\Factory;
 use WyriHaximus\React\ChildProcess\Messenger\Messages\Rpc;
 
-class MessageFactory
+final class MessageFactory
 {
     const CLOSURE_EXECUTE = 'wyrihaximus.react.child-process.closure.child.execute';
 
