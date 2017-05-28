@@ -11,12 +11,12 @@ final class MessageFactory
 {
     const CLOSURE_EXECUTE = 'wyrihaximus.react.child-process.closure.child.execute';
 
-    public static function rpc(Closure $closure, string $secret = null): Rpc
+    public static function rpc(Closure $closure): Rpc
     {
         return Factory::rpc(
             self::CLOSURE_EXECUTE,
             [
-                'closure' => (new Serializer(null, $secret))->serialize($closure),
+                'closure' => (new Serializer())->serialize($closure),
             ]
         );
     }

@@ -10,13 +10,11 @@ final class MessageFactoryTest extends TestCase
 {
     public function testRpc()
     {
-        $secret = uniqid('', true);
-
         $message = MessageFactory::rpc(function ($v) {
             return $v;
-        }, $secret);
+        });
 
         self::assertTrue(isset($message->getPayload()['closure']));
-        self::assertSame(MessageFactory::CLOSURE_EXECUTE, ((new Serializer(null, $secret))->unserialize($message->getPayload()['closure']))(MessageFactory::CLOSURE_EXECUTE));
+        self::assertSame(MessageFactory::CLOSURE_EXECUTE, ((new Serializer())->unserialize($message->getPayload()['closure']))(MessageFactory::CLOSURE_EXECUTE));
     }
 }
