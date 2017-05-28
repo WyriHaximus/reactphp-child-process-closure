@@ -47,7 +47,7 @@ final class ClosureChild implements ChildInterface
         );
     }
 
-    public static function create(Messenger $messenger, LoopInterface $loop)
+    public static function create(Messenger $messenger, LoopInterface $loop): ClosureChild
     {
         return new self($messenger, $loop);
     }
