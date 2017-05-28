@@ -1,5 +1,6 @@
 {
     "name": "wyrihaximus/react-child-process-closure",
+    "description": "Run closures in ReactPHP Child Processes",
     "license": "MIT",
     "authors": [
         {
