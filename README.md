@@ -42,7 +42,7 @@ MessengerFactory::parentFromClass(ClosureChild::class, $loop)->then(function (Me
 $loop->run();
 ```
 
-The usage example above also works with [`wyrihaximus/react-child-process-pool`](https://github.com/wyrihaximus/reactphp-child-process-pool/tree/readme-upgrades#flexible), just be sure to use `WyriHaximus\React\ChildProcess\Closure\MessageFactory` to create the RPC messages as shown in the example.
+The usage example above also works with [`wyrihaximus/react-child-process-pool`](https://github.com/wyrihaximus/reactphp-child-process-pool#flexible), just be sure to use `WyriHaximus\React\ChildProcess\Closure\MessageFactory` to create the RPC messages as shown in the example.
 
 ## Examples ##
 
