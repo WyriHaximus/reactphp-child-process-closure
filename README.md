@@ -17,9 +17,36 @@ To install via [Composer](http://getcomposer.org/), use the command below, it wi
 composer require wyrihaximus/react-child-process-closure 
 ```
 
+## Usage ##
+
+Run a closure on the child process and get the results. (Note that results have to be a JSON serializable array.) 
+
+```php
+use React\EventLoop\Factory as EventLoopFactory;
+use WyriHaximus\React\ChildProcess\Closure\ClosureChild;
+use WyriHaximus\React\ChildProcess\Closure\MessageFactory;
+use WyriHaximus\React\ChildProcess\Messenger\Factory as MessengerFactory;
+use WyriHaximus\React\ChildProcess\Messenger\Messages\Payload;
+use WyriHaximus\React\ChildProcess\Messenger\Messenger;
+
+$loop = EventLoopFactory::create();
+
+MessengerFactory::parentFromClass(ClosureChild::class, $loop)->then(function (Messenger $messenger) use ($loop) {
+    $messenger->rpc(MessageFactory::rpc(function () {
+        return resolve(['time' => time()]);
+    })->done(function (Payload $payload) {
+        echo 'Time in the child process: ', $payload['time'], PHP_EOL;
+    });
+});
+
+$loop->run();
+```
+
+The usage example above also works with [`wyrihaximus/react-child-process-pool`](https://github.com/wyrihaximus/reactphp-child-process-pool/tree/readme-upgrades#flexible), just be sure to use `WyriHaximus\React\ChildProcess\Closure\MessageFactory` to create the RPC messages as shown in the example.
+
 ## Examples ##
 
-For examples see the [examples](https://github.com/WyriHaximus/reactphp-child-process-closure/tree/master/examples) directory
+For more examples see the [examples](https://github.com/WyriHaximus/reactphp-child-process-closure/tree/master/examples) directory
 
 ## Contributing ##
 
