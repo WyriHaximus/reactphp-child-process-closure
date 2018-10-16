@@ -4,7 +4,7 @@ namespace WyriHaximus\React\Tests\ChildProcess\Closure;
 
 use PHPUnit\Framework\TestCase;
 use React\EventLoop\Factory;
-use React\Stream\Stream;
+use React\Socket\ConnectionInterface;
 use WyriHaximus\React\ChildProcess\Closure\ClosureChild;
 use WyriHaximus\React\ChildProcess\Closure\MessageFactory;
 use WyriHaximus\React\ChildProcess\Messenger\Messenger;
@@ -15,8 +15,8 @@ final class ClosureChildTest extends TestCase
     public function testExecuteClosure()
     {
         $loop = Factory::create();
-        $stream = $this->prophesize(Stream::class)->reveal();
-        $messenger = new Messenger($stream, $stream, $stream, []);
+        $connection = $this->prophesize(ConnectionInterface::class)->reveal();
+        $messenger = new Messenger($connection, []);
 
         ClosureChild::create($messenger, $loop);
 

@@ -9,13 +9,12 @@
         }
     ],
     "require": {
-        "php": "^7.0",
+        "php": "^7.2",
         "jeremeamia/superclosure": "^2.3",
-        "nikic/php-parser": "^2.0|^3.0",
-        "wyrihaximus/react-child-process-messenger": "^2.7"
+        "wyrihaximus/react-child-process-messenger": "^2.8"
     },
     "require-dev": {
-        "api-clients/test-utilities": "^4.1"
+        "api-clients/test-utilities": "^5.1"
     },
     "autoload": {
         "psr-4": {
@@ -30,7 +29,7 @@
     "config": {
         "sort-packages": true,
         "platform": {
-            "php": "7.0"
+            "php": "7.2"
         }
     },
     "scripts": {
