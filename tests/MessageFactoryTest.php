@@ -6,9 +6,12 @@ use PHPUnit\Framework\TestCase;
 use SuperClosure\Serializer;
 use WyriHaximus\React\ChildProcess\Closure\MessageFactory;
 
+/**
+ * @internal
+ */
 final class MessageFactoryTest extends TestCase
 {
-    public function testRpc()
+    public function testRpc(): void
     {
         $message = MessageFactory::rpc(function ($v) {
             return $v;
