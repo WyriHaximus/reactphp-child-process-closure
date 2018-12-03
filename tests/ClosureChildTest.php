@@ -10,9 +10,12 @@ use WyriHaximus\React\ChildProcess\Closure\MessageFactory;
 use WyriHaximus\React\ChildProcess\Messenger\Messenger;
 use function Clue\React\Block\await;
 
+/**
+ * @internal
+ */
 final class ClosureChildTest extends TestCase
 {
-    public function testExecuteClosure()
+    public function testExecuteClosure(): void
     {
         $loop = Factory::create();
         $connection = $this->prophesize(ConnectionInterface::class)->reveal();

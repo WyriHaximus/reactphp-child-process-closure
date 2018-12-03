@@ -1,5 +1,5 @@
 <?php declare(strict_types=1);
-require dirname(__DIR__) . '/vendor/autoload.php';
+require \dirname(__DIR__) . '/vendor/autoload.php';
 
 use React\EventLoop\Factory as EventLoopFactory;
 use React\EventLoop\Timer\Timer;
@@ -11,13 +11,13 @@ use WyriHaximus\React\ChildProcess\Messenger\Messenger;
 
 $loop = EventLoopFactory::create();
 
-MessengerFactory::parentFromClass(ClosureChild::class, $loop)->then(function (Messenger $messenger) use ($loop) {
-    $messenger->on('error', function ($e) {
-        echo 'Error: ', var_export($e, true), PHP_EOL;
+MessengerFactory::parentFromClass(ClosureChild::class, $loop)->then(function (Messenger $messenger) use ($loop): void {
+    $messenger->on('error', function ($e): void {
+        echo 'Error: ', \var_export($e, true), PHP_EOL;
     });
 
     $i = 0;
-    $loop->addPeriodicTimer(1, function (Timer $timer) use (&$i, $messenger) {
+    $loop->addPeriodicTimer(1, function (Timer $timer) use (&$i, $messenger): void {
         if ($i >= 13) {
             $timer->cancel();
             $messenger->softTerminate();
@@ -26,8 +26,8 @@ MessengerFactory::parentFromClass(ClosureChild::class, $loop)->then(function (Me
         }
 
         $messenger->rpc(MessageFactory::rpc(function () {
-            return ['time' => time()]; // Note that you ALWAYS MUST return an array
-        }))->done(function (Payload $payload) {
+            return ['time' => \time()]; // Note that you ALWAYS MUST return an array
+        }))->done(function (Payload $payload): void {
             echo $payload['time'], PHP_EOL;
         });
 
