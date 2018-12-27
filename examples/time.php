@@ -13,7 +13,7 @@ $loop = EventLoopFactory::create();
 
 MessengerFactory::parentFromClass(ClosureChild::class, $loop)->then(function (Messenger $messenger) use ($loop): void {
     $messenger->on('error', function ($e): void {
-        echo 'Error: ', \var_export($e, true), PHP_EOL;
+        echo 'Error: ', \var_export($e, true), \PHP_EOL;
     });
 
     $i = 0;
@@ -28,7 +28,7 @@ MessengerFactory::parentFromClass(ClosureChild::class, $loop)->then(function (Me
         $messenger->rpc(MessageFactory::rpc(function () {
             return ['time' => \time()]; // Note that you ALWAYS MUST return an array
         }))->done(function (Payload $payload): void {
-            echo $payload['time'], PHP_EOL;
+            echo $payload['time'], \PHP_EOL;
         });
 
         $i++;
