@@ -2,13 +2,13 @@
 
 namespace WyriHaximus\React\Tests\ChildProcess\Closure;
 
+use function Clue\React\Block\await;
 use PHPUnit\Framework\TestCase;
 use React\EventLoop\Factory;
 use React\Socket\ConnectionInterface;
 use WyriHaximus\React\ChildProcess\Closure\ClosureChild;
 use WyriHaximus\React\ChildProcess\Closure\MessageFactory;
 use WyriHaximus\React\ChildProcess\Messenger\Messenger;
-use function Clue\React\Block\await;
 
 /**
  * @internal
