@@ -4,13 +4,13 @@ namespace WyriHaximus\React\ChildProcess\Closure;
 
 use React\EventLoop\LoopInterface;
 use React\Promise\PromiseInterface;
+use function React\Promise\reject;
+use function React\Promise\resolve;
 use SuperClosure\Serializer;
 use Throwable;
 use WyriHaximus\React\ChildProcess\Messenger\ChildInterface;
 use WyriHaximus\React\ChildProcess\Messenger\Messages\Payload;
 use WyriHaximus\React\ChildProcess\Messenger\Messenger;
-use function React\Promise\reject;
-use function React\Promise\resolve;
 
 final class ClosureChild implements ChildInterface
 {
