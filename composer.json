@@ -10,7 +10,7 @@
     ],
     "require": {
         "php": "^7.2",
-        "jeremeamia/superclosure": "^2.3",
+        "opis/closure": "^3.5",
         "wyrihaximus/react-child-process-messenger": "^2.8"
     },
     "require-dev": {

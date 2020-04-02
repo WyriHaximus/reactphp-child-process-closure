@@ -3,7 +3,7 @@
 namespace WyriHaximus\React\ChildProcess\Closure;
 
 use Closure;
-use SuperClosure\Serializer;
+use Opis\Closure\SerializableClosure;
 use WyriHaximus\React\ChildProcess\Messenger\Messages\Factory;
 use WyriHaximus\React\ChildProcess\Messenger\Messages\Rpc;
 
@@ -20,7 +20,7 @@ final class MessageFactory
         return Factory::rpc(
             self::CLOSURE_EXECUTE,
             [
-                'closure' => (new Serializer())->serialize($closure),
+                'closure' => \serialize(new SerializableClosure($closure)),
             ]
         );
     }
