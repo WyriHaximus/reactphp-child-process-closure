@@ -6,7 +6,6 @@ use React\EventLoop\LoopInterface;
 use React\Promise\PromiseInterface;
 use function React\Promise\reject;
 use function React\Promise\resolve;
-use SuperClosure\Serializer;
 use Throwable;
 use WyriHaximus\React\ChildProcess\Messenger\ChildInterface;
 use WyriHaximus\React\ChildProcess\Messenger\Messages\Payload;
@@ -25,11 +24,6 @@ final class ClosureChild implements ChildInterface
     private $loop;
 
     /**
-     * @var Serializer
-     */
-    private $serializer;
-
-    /**
      * @param Messenger     $messenger
      * @param LoopInterface $loop
      */
@@ -37,7 +31,6 @@ final class ClosureChild implements ChildInterface
     {
         $this->messenger = $messenger;
         $this->loop = $loop;
-        $this->serializer = new Serializer();
 
         $this->messenger->registerRpc(
             MessageFactory::CLOSURE_EXECUTE,
@@ -64,7 +57,7 @@ final class ClosureChild implements ChildInterface
     private function executeClosure(string $closure): PromiseInterface
     {
         try {
-            $unserialized = $this->serializer->unserialize($closure);
+            $unserialized = \unserialize($closure)->getClosure();
 
             return resolve($unserialized());
         } catch (Throwable $throwable) {
