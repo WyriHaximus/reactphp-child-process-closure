@@ -1,22 +1,26 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace WyriHaximus\React\Tests\ChildProcess\Closure;
 
-use PHPUnit\Framework\TestCase;
+use WyriHaximus\AsyncTestUtilities\AsyncTestCase;
 use WyriHaximus\React\ChildProcess\Closure\MessageFactory;
+
+use function unserialize;
 
 /**
  * @internal
  */
-final class MessageFactoryTest extends TestCase
+final class MessageFactoryTest extends AsyncTestCase
 {
     public function testRpc(): void
     {
-        $message = MessageFactory::rpc(function ($v) {
+        $message = MessageFactory::rpc(static function ($v) {
             return $v;
         });
 
-        self::assertTrue(isset($message->getPayload()['closure']));
-        self::assertSame(MessageFactory::CLOSURE_EXECUTE, (\unserialize($message->getPayload()['closure'])->getClosure())(MessageFactory::CLOSURE_EXECUTE));
+        self::assertArrayHasKey('closure', $message->getPayload()->getPayload());
+        self::assertSame(MessageFactory::CLOSURE_EXECUTE, (unserialize($message->getPayload()['closure'])->getClosure())(MessageFactory::CLOSURE_EXECUTE));
     }
 }

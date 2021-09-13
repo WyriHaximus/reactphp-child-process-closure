@@ -1,66 +1,48 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace WyriHaximus\React\ChildProcess\Closure;
 
 use React\EventLoop\LoopInterface;
 use React\Promise\PromiseInterface;
-use function React\Promise\reject;
-use function React\Promise\resolve;
 use Throwable;
 use WyriHaximus\React\ChildProcess\Messenger\ChildInterface;
 use WyriHaximus\React\ChildProcess\Messenger\Messages\Payload;
 use WyriHaximus\React\ChildProcess\Messenger\Messenger;
 
+use function React\Promise\reject;
+use function React\Promise\resolve;
+use function unserialize;
+
 final class ClosureChild implements ChildInterface
 {
-    /**
-     * @var Messenger
-     */
-    private $messenger;
+    private Messenger $messenger;
 
-    /**
-     * @var LoopInterface
-     */
-    private $loop;
-
-    /**
-     * @param Messenger     $messenger
-     * @param LoopInterface $loop
-     */
-    private function __construct(Messenger $messenger, LoopInterface $loop)
+    private function __construct(Messenger $messenger)
     {
         $this->messenger = $messenger;
-        $this->loop = $loop;
 
         $this->messenger->registerRpc(
             MessageFactory::CLOSURE_EXECUTE,
-            function (Payload $payload) {
+            function (Payload $payload): PromiseInterface {
                 return $this->executeClosure($payload->getPayload()['closure']);
             }
         );
     }
 
-    /**
-     * @param  Messenger     $messenger
-     * @param  LoopInterface $loop
-     * @return ClosureChild
-     */
     public static function create(Messenger $messenger, LoopInterface $loop): ClosureChild
     {
-        return new self($messenger, $loop);
+        return new self($messenger);
     }
 
-    /**
-     * @param  string           $closure
-     * @return PromiseInterface
-     */
     private function executeClosure(string $closure): PromiseInterface
     {
         try {
-            $unserialized = \unserialize($closure)->getClosure();
+            $unserialized = unserialize($closure)->getClosure();
 
             return resolve($unserialized());
-        } catch (Throwable $throwable) {
+        } catch (Throwable $throwable) { // @phpstan-ignore-line
             return reject($throwable);
         }
     }
