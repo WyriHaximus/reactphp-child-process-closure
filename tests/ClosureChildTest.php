@@ -1,36 +1,37 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace WyriHaximus\React\Tests\ChildProcess\Closure;
 
-use function Clue\React\Block\await;
-use PHPUnit\Framework\TestCase;
-use React\EventLoop\Factory;
+use React\EventLoop\Loop;
 use React\Socket\ConnectionInterface;
+use WyriHaximus\AsyncTestUtilities\AsyncTestCase;
 use WyriHaximus\React\ChildProcess\Closure\ClosureChild;
 use WyriHaximus\React\ChildProcess\Closure\MessageFactory;
+use WyriHaximus\React\ChildProcess\Messenger\ChildProcess\Options;
 use WyriHaximus\React\ChildProcess\Messenger\Messenger;
 
 /**
  * @internal
  */
-final class ClosureChildTest extends TestCase
+final class ClosureChildTest extends AsyncTestCase
 {
     public function testExecuteClosure(): void
     {
-        $loop = Factory::create();
         $connection = $this->prophesize(ConnectionInterface::class)->reveal();
-        $messenger = new Messenger($connection, []);
+        $messenger  = new Messenger($connection, new Options('', '', 13));
 
-        ClosureChild::create($messenger, $loop);
+        ClosureChild::create($messenger, Loop::get());
 
         $data = 1337;
 
-        $result = await($messenger->callRpc(
+        $result = $this->await($messenger->callRpc(
             MessageFactory::CLOSURE_EXECUTE,
-            MessageFactory::rpc(function () use ($data) {
+            MessageFactory::rpc(static function () use ($data): int {
                 return $data;
             })->getPayload()
-        ), $loop);
+        ));
 
         self::assertSame(1337, $result);
     }
