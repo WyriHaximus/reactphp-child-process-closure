@@ -9,7 +9,7 @@
         }
     ],
     "require": {
-        "php": "^7.4",
+        "php": "^8 || ^7.4",
         "opis/closure": "^3.5",
         "react/event-loop": "^1.2",
         "react/promise": "^2.8",

@@ -28,7 +28,8 @@ final class ClosureChildTest extends AsyncTestCase
 
         $result = $this->await($messenger->callRpc(
             MessageFactory::CLOSURE_EXECUTE,
-            MessageFactory::rpc(static function () use ($data): int {
+            /** @phpstan-ignore-next-line */
+            MessageFactory::rpc(static function () use ($data) {
                 return $data;
             })->getPayload()
         ));
