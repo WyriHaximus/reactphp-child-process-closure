@@ -10,7 +10,7 @@
     ],
     "require": {
         "php": "^8 || ^7.4",
-        "opis/closure": "^3.5",
+        "opis/closure": "^3.6",
         "react/event-loop": "^1.2",
         "react/promise": "^2.8",
         "wyrihaximus/react-child-process-messenger": "^4.0"
